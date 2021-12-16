@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: our-deployment
+spec:
+  containers:
+    - name: our-super-user-container
+      envFrom:
+        - name: username
+          secretKeyRef:
+            name: our-secret
+            key: DB_SUPER_USERNAME
+        - name: password
+          secretKeyRef:
+            name: our-secret
+            key: DB_SUPER_PASSWORD
+
+    - name: our-app-container
+      envFrom:
+        - name: username
+          secretKeyRef:
+            name: our-secret
+            key: DB_APP_USERNAME
+        - name: password
+          secretKeyRef:
+            name: our-secret
+            key: DB_APP_PASSWROD
+
+    - name: our-migration-container
+      envFrom:
+        - name: username
+          secretKeyRef:
+            name: our-secret
+            key: DB_MIGRATOR_USERNAME
+        - name: password
+          secretKeyRef:
+            name: our-secret
+            key: DB_MIGRATOR_PASSWORD
